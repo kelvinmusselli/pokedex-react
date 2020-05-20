@@ -49,5 +49,6 @@ export const FormButton = styled.div`
     border: 1px solid #fff;
     border-radius: 4px;
     margin: 0 15px;
+    padding: 4px;
   }
 `;
