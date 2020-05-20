@@ -17,24 +17,28 @@ const Home = () => {
     const getPokemons = async () => {
       const data = await api.get('/pokemon');
       if (data) {
-        setListPokemons(data.data);
+        setListPokemons(data.data.results);
         setPages({ next: data.data.next, prev: data.data.prev });
       }
     };
     getPokemons();
   }, []);
   const nextPage = async () => {
-    const data = await api.get(pages.next);
-    if (data) {
-      setListPokemons(data.data);
-      setPages({ next: data.data.next, prev: data.data.prev });
+    if (pages.next !== (undefined || null)) {
+      const data = await api.get(pages.next);
+      if (data) {
+        setListPokemons(data.data.results);
+        setPages({ next: data.data.next, prev: data.data.previous });
+      }
     }
   };
   const prevPage = async () => {
-    const data = await api.get(pages.prev);
-    if (data) {
-      setListPokemons(data.data);
-      setPages({ next: data.data.next, prev: data.data.prev });
+    if (pages.prev !== (undefined || null)) {
+      const data = await api.get(pages.prev);
+      if (data) {
+        setListPokemons(data.data.results);
+        setPages({ next: data.data.next, prev: data.data.previous });
+      }
     }
   };
   return (
@@ -43,8 +47,8 @@ const Home = () => {
         <Title>Pokedex - React</Title>
       </DivTitle>
       <ListPokemons>
-        {dataPokemons.results
-          ? dataPokemons.results.map((poke, index) => (
+        {dataPokemons
+          ? dataPokemons.map((poke, index) => (
               <Pokemons key={index}>{poke.name}</Pokemons>
             ))
           : null}
