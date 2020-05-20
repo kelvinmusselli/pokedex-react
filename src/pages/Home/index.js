@@ -6,7 +6,6 @@ const Home = () => {
   return (
     <Container>
       <h1>Pokedex - React</h1>
-      <div>Pesquise um pokemon ou habilidade</div>
     </Container>
   );
 };
